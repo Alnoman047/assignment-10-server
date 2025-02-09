@@ -51,6 +51,29 @@ async function run() {
         res.send(result);
     })
 
+    app.put("/addItems/:id",async(req,res)=>{
+      const id = req.params.id;
+      const item = req.body;
+      const filter ={_id: new ObjectId(id)};
+      const options = {upsert:true};
+      const updateDoc = {
+        $set:{
+          imgURL: item.imgURL,
+          itemName: item.itemName,
+          subcategory: item.subcategory,
+          description: item.description,
+          price: item.price,
+          rating:item.rating,
+          customization: item.customization,
+          stock: item.stock,
+          email: item.email,
+          name: item.name
+        }
+      }
+      const result = await itemsCollection.updateOne(filter,updateDoc,options);
+      res.send(result);
+    })
+
     // ----------------------------------------------
 
     // cards-----------------------------------------
