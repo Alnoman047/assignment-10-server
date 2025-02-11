@@ -29,7 +29,7 @@ async function run() {
 
     const itemsCollection = client.db("artDiaryDB") .collection("items");
     const cardCollection = client.db("artDiaryDB") .collection("cards");
-    const userCollection =client.db("artDiaryDB") .collection("users");
+    
 
 
     // add items------------------------------------
@@ -95,8 +95,8 @@ async function run() {
     })
 
     app.get("/cards",async(req,res)=>{
-      const cards = cardCollection.find();
-      const result = await cards.toArray();
+      const cursor= cardCollection.find();
+      const result = await cursor.toArray();
       res.send(result)
     })
 
@@ -116,12 +116,6 @@ async function run() {
 
 // userlist--------------------------------------
 
-
-app.post("/users",async(req,res)=>{
-  const users = req.body;
-  const result = await userCollection.insertOne(users);
-  res.send(result);
-})
 
 
 
